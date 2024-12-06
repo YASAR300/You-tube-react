@@ -1,0 +1,74 @@
+.menu-line {
+    color: white;
+    position: absolute;
+    left: 16%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+  }
+  .menu-line::after {
+    content: '';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px; 
+    height: 100%; 
+    background-color: #000000; 
+    border-top-right-radius: 50px; 
+    border-bottom-right-radius: 50px; 
+  }
+  .menu-line p {
+    background-color: #333;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+  }
+  
+  .menu-line .all {
+    width: 50px;
+  }
+  
+  .menu-line .ux {
+    width: 40px;
+  }
+  
+  .menu-line .music {
+    width: 70px;
+  }
+  
+  .menu-line .tour {
+    width: 50px;
+  }
+  
+  .menu-line .tech {
+    width: 50px;
+  }
+  
+  .menu-line .uid {
+    width: 200px;
+  }
+  .menu-line .coke{
+    width: 100px;
+  }
+  .menu-line .case{
+    width: 100px;
+  }
+  .menu-line .ba{
+    width: 100px;
+  }
+  .menu-line .sa{
+    width: 100px;
+  }
+  .menu-line .i{
+    width: 100px;
+  }
