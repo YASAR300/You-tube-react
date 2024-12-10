@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 // import coke from '../img/coke.png';
 // import thumb from '../img/Thumbnail-8.png';
 // import thumb4 from '../img/Thumbnail-4.png';
@@ -21,17 +21,85 @@ import React, { useEffect, useState } from "react";
 // import el6 from '../img/Ellipse 4 (6).png';
 // import el7 from '../img/Ellipse 1 (6).png';
 
-import '../maincon.css';
+// import '../maincon.css';
 
-const VideoList = () => {
+// const VideoList = () => {
+//   const [videos, setVideos] = useState([]);
+
+//   useEffect(() => {
+//     fetch("https://backend-06ow.onrender.com/grid")
+//       .then((response) => response.json())
+//       .then((data) => setVideos(data))
+//       .catch((error) => console.error("Error fetching data:", error));
+//   }, []);
+
+//   return (
+//     <div className="container">
+//       <div className="list_container">
+//         {videos.map((video, index) => (
+//           <div className="vid_list" key={index}>
+//             <a href="#">
+//               <img src={video.img} alt="Thumbnail" className="thumbnail" />
+//             </a>
+//             <div className="flex-div">
+//               <img src={video.smallimg} alt="Avatar" />
+//               <div className="vid_info">
+//                 <a href="#">{video.title}</a>
+//                 <p>{video.subtitle1}</p>
+//                 {video.subtitle2 && <p>{video.subtitle2}</p>}
+//                 {video.subtitleimg && (
+//                   <img src={video.subtitleimg} alt="Verified Icon" className="verify" />
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VideoList;
+
+
+// 
+
+
+
+import React, { useEffect, useState } from "react";
+import "../maincon.css";
+
+const VideoList = ({ searchQuery }) => {
   const [videos, setVideos] = useState([]);
 
+  const API_KEY = "AIzaSyBAddwjFlPZlTTUVs1WtvgClSPt_U64q0g";
+
   useEffect(() => {
-    fetch("https://backend-06ow.onrender.com/grid")
-      .then((response) => response.json())
-      .then((data) => setVideos(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+    const fetchVideos = async () => {
+      const query = searchQuery.trim() || "trending"; // Default to 'trending' if no search query
+      try {
+        const response = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&key=${API_KEY}`
+        );
+        const data = await response.json();
+
+        const formattedData = data.items.map((item) => ({
+          img: item.snippet.thumbnails.medium.url,
+          smallimg: item.snippet.thumbnails.default.url,
+          title: item.snippet.title,
+          subtitle1: item.snippet.channelTitle,
+          subtitle2: item.snippet.description,
+          subtitleimg: null, // Add a URL if verified icon needed
+        }));
+
+        setVideos(formattedData);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    };
+
+    fetchVideos();
+  }, [searchQuery]);
 
   return (
     <div className="container">
@@ -48,7 +116,11 @@ const VideoList = () => {
                 <p>{video.subtitle1}</p>
                 {video.subtitle2 && <p>{video.subtitle2}</p>}
                 {video.subtitleimg && (
-                  <img src={video.subtitleimg} alt="Verified Icon" className="verify" />
+                  <img
+                    src={video.subtitleimg}
+                    alt="Verified Icon"
+                    className="verify"
+                  />
                 )}
               </div>
             </div>
