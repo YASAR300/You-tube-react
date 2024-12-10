@@ -27,7 +27,7 @@ const VideoList = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/grid")
+    fetch("https://backend-06ow.onrender.com/grid")
       .then((response) => response.json())
       .then((data) => setVideos(data))
       .catch((error) => console.error("Error fetching data:", error));
