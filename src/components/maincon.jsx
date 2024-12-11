@@ -76,7 +76,7 @@ const VideoList = ({ searchQuery }) => {
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const query = searchQuery.trim() || "trending"; // Default to 'trending' if no search query
+      const query = searchQuery.trim() || "song"; 
       try {
         const response = await fetch(
           `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&key=${API_KEY}`
@@ -88,8 +88,8 @@ const VideoList = ({ searchQuery }) => {
           smallimg: item.snippet.thumbnails.default.url,
           title: item.snippet.title,
           subtitle1: item.snippet.channelTitle,
-          subtitle2: item.snippet.description,
-          subtitleimg: null, // Add a URL if verified icon needed
+          // subtitle2: item.snippet.description,
+          subtitleimg: null, 
         }));
 
         setVideos(formattedData);
