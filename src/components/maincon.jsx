@@ -143,7 +143,7 @@ const VideoList = ({ searchQuery }) => {
   const [videos, setVideos] = useState([]);
   const [selectedVideoId, setSelectedVideoId] = useState(null);
 
-  const API_KEY = "AIzaSyBTP5vxG4JZSSH84RKOCIx0GvpnSEMlicE";
+  const API_KEY = "AIzaSyBHh9dFkk-g-G7cGX5agOrSLQIZLNJtOoI";
 
   useEffect(() => {
     const fetchVideos = async () => {
