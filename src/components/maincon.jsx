@@ -66,11 +66,82 @@
 
 
 
+// import React, { useEffect, useState } from "react";
+// import ReactPlayer from "react-player";
+// import "../maincon.css";
+
+// const VideoList = ({ searchQuery }) => {
+//   const [videos, setVideos] = useState([]);
+//   const [selectedVideoId, setSelectedVideoId] = useState(null);
+
+//   const API_KEY = "AIzaSyBTP5vxG4JZSSH84RKOCIx0GvpnSEMlicE";
+
+//   useEffect(() => {
+//     const fetchVideos = async () => {
+//       const query = searchQuery.trim() || "song"; 
+//       try {
+//         const response = await fetch(
+//           `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&key=${API_KEY}`
+//         );
+//         const data = await response.json();
+
+//         const formattedData = data.items.map((item) => ({
+//           img: item.snippet.thumbnails.medium.url,
+//           smallimg: item.snippet.thumbnails.default.url,
+//           title: item.snippet.title,
+//           subtitle1: item.snippet.channelTitle,
+//           // subtitle2: item.snippet.description,
+//           subtitleimg: null, 
+//         }));
+
+//         setVideos(formattedData);
+//       } catch (error) {
+//         console.error("Error fetching videos:", error);
+//       }
+//     };
+
+//     fetchVideos();
+//   }, [searchQuery]);
+
+//   return (
+//     <div className="container">
+//       <div className="list_container">
+//         {videos.map((video, index) => (
+//           <div className="vid_list" key={index}>
+//             <a href={`https://www.youtube.com/watch?v=${video.videoId}`}>
+//               <img src={video.img} alt="Thumbnail" className="thumbnail" />
+//             </a>
+//             <div className="flex-div">
+//               <img src={video.smallimg} alt="Avatar" />
+//               <div className="vid_info">
+//                 <a href="#">{video.title}</a>
+//                 <p>{video.subtitle1}</p>
+//                 {video.subtitle2 && <p>{video.subtitle2}</p>}
+//                 {video.subtitleimg && (
+//                   <img
+//                     src={video.subtitleimg}
+//                     alt="Verified Icon"
+//                     className="verify"
+//                   />
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VideoList;
+
+
 import React, { useEffect, useState } from "react";
 import "../maincon.css";
 
 const VideoList = ({ searchQuery }) => {
   const [videos, setVideos] = useState([]);
+  const [selectedVideoId, setSelectedVideoId] = useState(null);
 
   const API_KEY = "AIzaSyBTP5vxG4JZSSH84RKOCIx0GvpnSEMlicE";
 
@@ -84,12 +155,11 @@ const VideoList = ({ searchQuery }) => {
         const data = await response.json();
 
         const formattedData = data.items.map((item) => ({
+          videoId: item.id.videoId,
           img: item.snippet.thumbnails.medium.url,
           smallimg: item.snippet.thumbnails.default.url,
           title: item.snippet.title,
           subtitle1: item.snippet.channelTitle,
-          // subtitle2: item.snippet.description,
-          subtitleimg: null, 
         }));
 
         setVideos(formattedData);
@@ -103,25 +173,42 @@ const VideoList = ({ searchQuery }) => {
 
   return (
     <div className="container">
+      {/* Video Player Section */}
+      {selectedVideoId && (
+        <div className="video-player">
+          <div className="player-wrapper">
+            <iframe
+              src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1&rel=0&modestbranding=1`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="video-iframe"
+            ></iframe>
+            <button
+              onClick={() => setSelectedVideoId(null)}
+              className="close-button"
+            >
+              Close Player
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Video List Section */}
       <div className="list_container">
         {videos.map((video, index) => (
-          <div className="vid_list" key={index}>
-            <a href="#">
-              <img src={video.img} alt="Thumbnail" className="thumbnail" />
-            </a>
+          <div
+            className="vid_list"
+            key={index}
+            onClick={() => setSelectedVideoId(video.videoId)} // Set selected video ID
+          >
+            <img src={video.img} alt="Thumbnail" className="thumbnail" />
             <div className="flex-div">
               <img src={video.smallimg} alt="Avatar" />
               <div className="vid_info">
-                <a href="#">{video.title}</a>
+                <p className="video-title">{video.title}</p>
                 <p>{video.subtitle1}</p>
-                {video.subtitle2 && <p>{video.subtitle2}</p>}
-                {video.subtitleimg && (
-                  <img
-                    src={video.subtitleimg}
-                    alt="Verified Icon"
-                    className="verify"
-                  />
-                )}
               </div>
             </div>
           </div>
