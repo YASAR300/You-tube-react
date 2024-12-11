@@ -72,7 +72,7 @@ import "../maincon.css";
 const VideoList = ({ searchQuery }) => {
   const [videos, setVideos] = useState([]);
 
-  const API_KEY = "AIzaSyBAddwjFlPZlTTUVs1WtvgClSPt_U64q0g";
+  const API_KEY = "AIzaSyBTP5vxG4JZSSH84RKOCIx0GvpnSEMlicE";
 
   useEffect(() => {
     const fetchVideos = async () => {
