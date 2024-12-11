@@ -1,24 +1,39 @@
 import React, { useState } from 'react';
 import NavBar from './components/nav';
-import SideBar from './components/side';
+import Sidebar from './components/side';
 import Line from './components/line';
-import Container from './components/maincon';
+import MainCon from './components/maincon'; 
 
 const App = () => {
-    const [searchQuery, setSearchQuery] = useState("");
-  
-    const handleSearch = (query) => {
-      setSearchQuery(query); 
-    };
+  const [searchQuery, setSearchQuery] = useState('');
 
-    return (
-        <div>
-            <NavBar onSearch={handleSearch} />
-            <SideBar />
-            <Line />
-            <Container searchQuery={searchQuery} />
-        </div>
-    );
+  
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+ 
+  const handleExploreClick = () => {
+    setSearchQuery('Explore'); 
+  };
+  const handleShortsClick = () => {
+    setSearchQuery('Shorts'); 
+  };
+  return (
+    <div>
+      
+      <NavBar onSearch={handleSearch} />
+      
+      
+      <Sidebar onExploreClick={handleExploreClick} onShortsClick={handleShortsClick} />
+      
+      
+      <Line />
+      
+      
+      <MainCon searchQuery={searchQuery} />
+    </div>
+  );
 };
 
 export default App;

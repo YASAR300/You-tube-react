@@ -173,7 +173,7 @@ const VideoList = ({ searchQuery }) => {
 
   return (
     <div className="container">
-      {/* Video Player Section */}
+      
       {selectedVideoId && (
         <div className="video-player">
           <div className="player-wrapper">
@@ -195,13 +195,13 @@ const VideoList = ({ searchQuery }) => {
         </div>
       )}
 
-      {/* Video List Section */}
+     
       <div className="list_container">
         {videos.map((video, index) => (
           <div
             className="vid_list"
             key={index}
-            onClick={() => setSelectedVideoId(video.videoId)} // Set selected video ID
+            onClick={() => setSelectedVideoId(video.videoId)} // Set selected video ID on click
           >
             <img src={video.img} alt="Thumbnail" className="thumbnail" />
             <div className="flex-div">

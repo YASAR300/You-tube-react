@@ -1,7 +1,7 @@
 import React from 'react';
 import home from '../img/home.png';
 import explore from '../img/explore.png';
-import shorts from '../img/shorts.png';
+import shorts from '../img/shorts.png'; // Import the shorts image
 import subscription from '../img/subscription.png';
 import library from '../img/library.png';
 import history from '../img/history.png';
@@ -17,11 +17,11 @@ import androidToTo from '../img/Ellipse 1 (4).png';
 import alux from '../img/Ellipse 1 (5).png';
 import '../side.css';
 
-const Sidebar = () => {
+const Sidebar = ({ onExploreClick, onShortsClick }) => {
   const shortcutLinks = [
     { id: 1, imgSrc: home, label: 'Home' },
     { id: 2, imgSrc: explore, label: 'Explore' },
-    { id: 3, imgSrc: shorts, label: 'Shorts' },
+    { id: 3, imgSrc: shorts, label: 'Shorts' }, // Added the "Shorts" link
     { id: 4, imgSrc: subscription, label: 'Subscription' },
     { id: 5, imgSrc: library, label: 'Library' },
     { id: 6, imgSrc: history, label: 'History' },
@@ -40,14 +40,22 @@ const Sidebar = () => {
     { id: 6, imgSrc: alux, label: 'Alux.com' },
   ];
 
-  const filteredSubscriptions = subscriptions.filter((sub) => sub.id % 2 !== 0);
-
   return (
     <div className="sidebar">
       <div className="shortcut_links">
         {/* Render all shortcut links */}
         {shortcutLinks.map((link) => (
-          <a href="#" key={link.id} className={link.label === 'Home' ? 'home-link' : ''}>
+          <a
+            href="#"
+            key={link.id}
+            onClick={
+              link.label === 'Explore'
+                ? () => onExploreClick() 
+                : link.label === 'Shorts'
+                ? () => onShortsClick() 
+                : null
+            }
+          >
             <img src={link.imgSrc} alt={link.label} />
             <p>{link.label}</p>
           </a>
@@ -65,7 +73,7 @@ const Sidebar = () => {
       </div>
       <div className="subscribed-list">
         <h3>SUBSCRIPTION</h3>
-        {filteredSubscriptions.map((sub) => (
+        {subscriptions.map((sub) => (
           <a href="#" key={sub.id}>
             <img src={sub.imgSrc} alt={sub.label} />
             <p>{sub.label}</p>
