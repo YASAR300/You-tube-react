@@ -230,14 +230,18 @@ const VideoList = ({ searchQuery }) => {
   const [selectedVideoId, setSelectedVideoId] = useState(null);
   const [apiKeyIndex, setApiKeyIndex] = useState(0);
 
-  // Define the three API keys
+  
   const API_KEYS = [
     "AIzaSyBTP5vxG4JZSSH84RKOCIx0GvpnSEMlicE",
     "AIzaSyBHh9dFkk-g-G7cGX5agOrSLQIZLNJtOoI",
     "AIzaSyBAddwjFlPZlTTUVs1WtvgClSPt_U64q0g",
+    "AIzaSyBtoE06oic0F8vg1yRRXpRcqsAKYwvRL1E",
+    "AIzaSyACsLlqXKdpk49b56Wemi7sgo-jZigVNnw",
+
+
   ];
 
-  // Function to fetch videos using the current API key
+  
   const fetchVideos = async () => {
     const query = searchQuery.trim() || "song";
     const currentApiKey = API_KEYS[apiKeyIndex];
@@ -248,10 +252,10 @@ const VideoList = ({ searchQuery }) => {
       );
       const data = await response.json();
 
-      // If the API limit is reached, it will return an error message
+     
       if (data.error) {
         if (data.error.code === 403) {
-          // Switch to the next API key and retry
+          
           setApiKeyIndex((prevIndex) => (prevIndex + 1) % API_KEYS.length);
           return;
         }
@@ -303,7 +307,7 @@ const VideoList = ({ searchQuery }) => {
           <div
             className="vid_list"
             key={index}
-            onClick={() => setSelectedVideoId(video.videoId)} // Set selected video ID on click
+            onClick={() => setSelectedVideoId(video.videoId)} 
           >
             <img src={video.img} alt="Thumbnail" className="thumbnail" />
             <div className="flex-div">
