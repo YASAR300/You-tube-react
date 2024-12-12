@@ -17,17 +17,27 @@ import androidToTo from '../img/Ellipse 1 (4).png';
 import alux from '../img/Ellipse 1 (5).png';
 import '../side.css';
 
-const Sidebar = ({ onExploreClick, onShortsClick }) => {
+const Sidebar = ({
+  onExploreClick,
+  onShortsClick,
+  onHomeClick,
+  onSubscriptionClick,
+  onLibraryClick,
+  onHistoryClick,
+  onYourVideoClick,
+  onWatchLaterClick,
+  onLikedClick,
+}) => {
   const shortcutLinks = [
-    { id: 1, imgSrc: home, label: 'Home' },
-    { id: 2, imgSrc: explore, label: 'Explore' },
-    { id: 3, imgSrc: shorts, label: 'Shorts' }, // Added the "Shorts" link
-    { id: 4, imgSrc: subscription, label: 'Subscription' },
-    { id: 5, imgSrc: library, label: 'Library' },
-    { id: 6, imgSrc: history, label: 'History' },
-    { id: 7, imgSrc: yourVideo, label: 'Your videos' },
-    { id: 8, imgSrc: watchLater, label: 'Watch later' },
-    { id: 9, imgSrc: liked, label: 'Liked videos' },
+    { id: 1, imgSrc: home, label: 'Home', onClick: onHomeClick },
+    { id: 2, imgSrc: explore, label: 'Explore', onClick: onExploreClick },
+    { id: 3, imgSrc: shorts, label: 'Shorts', onClick: onShortsClick },
+    { id: 4, imgSrc: subscription, label: 'Subscription', onClick: onSubscriptionClick },
+    { id: 5, imgSrc: library, label: 'Library', onClick: onLibraryClick },
+    { id: 6, imgSrc: history, label: 'History', onClick: onHistoryClick },
+    { id: 7, imgSrc: yourVideo, label: 'Your videos', onClick: onYourVideoClick },
+    { id: 8, imgSrc: watchLater, label: 'Watch later', onClick: onWatchLaterClick },
+    { id: 9, imgSrc: liked, label: 'Liked videos', onClick: onLikedClick },
     { id: 10, imgSrc: downArrow, label: 'Show more' },
   ];
 
@@ -48,13 +58,7 @@ const Sidebar = ({ onExploreClick, onShortsClick }) => {
           <a
             href="#"
             key={link.id}
-            onClick={
-              link.label === 'Explore'
-                ? () => onExploreClick() 
-                : link.label === 'Shorts'
-                ? () => onShortsClick() 
-                : null
-            }
+            onClick={link.onClick} // Assign the onClick function dynamically
           >
             <img src={link.imgSrc} alt={link.label} />
             <p>{link.label}</p>
